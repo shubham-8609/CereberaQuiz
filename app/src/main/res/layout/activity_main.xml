@@ -49,6 +49,7 @@
           >
             <!-- Make this LinearLayout center in CardView -->
             <LinearLayout
+                android:id="@+id/science_option"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -93,6 +94,7 @@
                 >
                 <!-- Make this LinearLayout center in CardView -->
                 <LinearLayout
+                    android:id="@+id/history_option"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -137,6 +139,7 @@
                 >
                 <!-- Make this LinearLayout center in CardView -->
                 <LinearLayout
+                    android:id="@+id/sports_option"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
