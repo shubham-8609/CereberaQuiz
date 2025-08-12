@@ -1,27 +1,27 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.CereberaQuiz" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-        <!-- Primary -->
-        <item name="colorPrimary">#FF8F00</item>
-        <item name="colorOnPrimary">#000000</item>
+<!--        &lt;!&ndash; Customize your dark theme here. &ndash;&gt;-->
+<!--        &lt;!&ndash; <item name="colorPrimary">@color/my_dark_primary</item> &ndash;&gt;-->
+<!--        &lt;!&ndash; Primary &ndash;&gt;-->
+<!--        <item name="colorPrimary">#FF8F00</item>-->
+<!--        <item name="colorOnPrimary">#000000</item>-->
 
-        <!-- Secondary -->
-        <item name="colorSecondary">#FFA726</item>
-        <item name="colorOnSecondary">#000000</item>
+<!--        &lt;!&ndash; Secondary &ndash;&gt;-->
+<!--        <item name="colorSecondary">#FFA726</item>-->
+<!--        <item name="colorOnSecondary">#000000</item>-->
 
-        <!-- Background -->
-        <item name="android:colorBackground">#121212</item>
-        <item name="colorOnBackground">#FFFFFF</item>
+<!--        &lt;!&ndash; Background &ndash;&gt;-->
+<!--        <item name="android:colorBackground">#121212</item>-->
+<!--        <item name="colorOnBackground">#FFFFFF</item>-->
 
-        <!-- Surface --><item name="" />
-        <item name="colorSurface">#1E1E1E</item>
-        <item name="colorOnSurface">#FFFFFF</item>
+<!--        &lt;!&ndash; Surface &ndash;&gt;-->
+<!--        <item name="colorSurface">#1E1E1E</item>-->
+<!--        <item name="colorOnSurface">#FFFFFF</item>-->
 
-        <!-- Error -->
-        <item name="colorError">#CF6679</item>
-        <item name="colorOnError">#000000</item>
+<!--        &lt;!&ndash; Error &ndash;&gt;-->
+<!--        <item name="colorError">#CF6679</item>-->
+<!--        <item name="colorOnError">#000000</item>-->
 
     </style>
 </resources>
