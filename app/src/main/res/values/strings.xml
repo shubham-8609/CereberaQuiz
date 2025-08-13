@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CereberaQuiz</string>
+    <string name="science_quiz_text">ScienceQuiz</string>
+    <string name="history_quiz_text">HistoryQuiz</string>>
+    <string name="sports_quiz_text">SportsQuiz</string>
+    <string name="default_question">Who was the father of Ocean ?</string>
+    <string name="default_options">Shubham ?</string>
 </resources>
