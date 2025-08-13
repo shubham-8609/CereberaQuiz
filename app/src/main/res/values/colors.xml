@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color  name="blue">#00f</color>
+    <color name="green">#006400</color>
     <!-- Primary brand colors -->
     <color name="primaryColor">#FF6F00</color> <!-- Deep Orange -->
     <color name="onPrimaryColor">#FFFFFF</color> <!-- Text/icons on primary -->

@@ -44,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginHorizontal="@dimen/_5sdp"
                 android:orientation="horizontal"
                 >
                 <TextView
@@ -96,6 +97,7 @@
                             android:layout_height="@dimen/_45sdp"
                             android:layout_marginStart="@dimen/_5sdp"
                             app:cardElevation="@dimen/_12sdp"
+                            app:cardBackgroundColor="@color/white"
 
                             app:cardCornerRadius="@dimen/_22sdp">
                             <TextView
@@ -141,6 +143,8 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="@dimen/_45sdp"
                             android:layout_height="@dimen/_45sdp"
+                            app:cardBackgroundColor="@color/white"
+
                             android:layout_marginStart="@dimen/_5sdp"
                             app:cardElevation="@dimen/_12sdp"
 
@@ -188,6 +192,8 @@
                         android:orientation="horizontal">
                         <androidx.cardview.widget.CardView
                             android:layout_width="@dimen/_45sdp"
+                            app:cardBackgroundColor="@color/white"
+
                             android:layout_height="@dimen/_45sdp"
                             android:layout_marginStart="@dimen/_5sdp"
                             app:cardElevation="@dimen/_12sdp"
@@ -236,6 +242,8 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="@dimen/_45sdp"
                             android:layout_height="@dimen/_45sdp"
+                            app:cardBackgroundColor="@color/white"
+
                             android:layout_marginStart="@dimen/_5sdp"
                             app:cardElevation="@dimen/_12sdp"
 
@@ -281,6 +289,7 @@
                 android:text="Next"
                 android:textColor="@color/onPrimaryColor"
                 android:textSize="@dimen/_20ssp"
+                android:visibility="gone"
                 style="@style/default_heading"/>
         </LinearLayout>
 
