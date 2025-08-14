@@ -8,4 +8,5 @@
     <string name="congrats_text">Congrats !</string>
     <string name="default_complete">Quiz completed successfully.</string>
     <string name="default_result">You attempt 60 questions and from that 55 is correct.</string>
+    <string name="developer">--Made By Shubham</string>
 </resources>

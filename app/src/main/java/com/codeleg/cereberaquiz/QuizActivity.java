@@ -1,8 +1,14 @@
 package com.codeleg.cereberaquiz;
 
 import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+import android.os.Build;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,21 +26,8 @@ import java.util.List;
 public class QuizActivity extends AppCompatActivity {
     String catogary;
     private List<Question> questionList;
-    TextView catogaryHeading;
-    TextView questionNoview;
-    TextView questionTextView;
-    CardView optionAView;
-    CardView optionBView;
-    CardView optionCView;
-    CardView optionDView;
-    TextView optionATextView;
-    TextView optionBTextView;
-    TextView optionCTextView;
-    TextView optionDTextView;
-    TextView optionAIconView;
-    TextView optionBIconView;
-    TextView optionCIconView;
-    TextView optionDIconView;
+    TextView catogaryHeading,questionNoview,questionTextView,optionATextView,optionBTextView,optionCTextView,optionDTextView,optionAIconView,optionBIconView,optionCIconView,optionDIconView;
+    CardView optionAView,optionBView,optionCView,optionDView;
     int currentQuestionIndex = 0;
     Boolean isChoosed = false;
     ArrayList<CardView> changedCardView = new ArrayList<>(1);
@@ -42,6 +35,7 @@ public class QuizActivity extends AppCompatActivity {
     AppCompatButton nextBtn;
     Intent resultIntent;
     int correctAnswers = 0;
+    Animation introAnim , clickAnim , slideAnim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +50,12 @@ public class QuizActivity extends AppCompatActivity {
         init();
         setHeading();
         setQuestion();
+        showAnimations();
         // Set click listeners for option buttons
         optionAView.setOnClickListener(v -> {
             if (isChoosed) {
             } else {
+                v.startAnimation(clickAnim);
                 if (checkAnswer(0)) {
                     changeColor(v, optionAIconView , 0);
                     isChoosed = true;
@@ -72,6 +68,7 @@ public class QuizActivity extends AppCompatActivity {
         optionBView.setOnClickListener(v -> {
             if (isChoosed) {
             } else {
+                v.startAnimation(clickAnim);
                 if (checkAnswer(1)) {
                     changeColor(v, optionBIconView , 0);
                 }
@@ -84,6 +81,7 @@ public class QuizActivity extends AppCompatActivity {
         optionCView.setOnClickListener(v -> {
             if (isChoosed) {
             } else {
+                v.startAnimation(clickAnim);
                 if (checkAnswer(2)) {
                     changeColor(v, optionCIconView , 0);
                 }
@@ -96,6 +94,7 @@ public class QuizActivity extends AppCompatActivity {
         optionDView.setOnClickListener(v -> {
             if (isChoosed) {
             } else {
+                v.startAnimation(clickAnim);
                 if (checkAnswer(3)) {
                         changeColor(v, optionDIconView , 0);
                 }else {
@@ -112,6 +111,7 @@ public class QuizActivity extends AppCompatActivity {
                 changedTextView.remove(0);
                 setQuestion();
                 isChoosed = false;
+                showAnimations();
                 nextBtn.setVisibility(View.GONE);
             } else {
                 resultIntent.putExtra("catogary", catogary);
@@ -145,6 +145,9 @@ public class QuizActivity extends AppCompatActivity {
         optionCIconView = findViewById(R.id.option_C_icon);
         optionDIconView = findViewById(R.id.option_D_icon);
         resultIntent = new Intent(QuizActivity.this, Result.class);
+        introAnim = AnimationUtils.loadAnimation(this, R.anim.intro_anim);
+        clickAnim = AnimationUtils.loadAnimation(this, R.anim.click_anim);
+        slideAnim = AnimationUtils.loadAnimation(this, R.anim.slide_anim);
     }
     private void setHeading() {
         switch (catogary) {
@@ -177,12 +180,14 @@ public class QuizActivity extends AppCompatActivity {
     private Boolean checkAnswer(int selectedOptionIndex) {
         // Implementation for checking the answer will go here
         nextBtn.setVisibility(View.VISIBLE);
+        nextBtn.startAnimation(introAnim);
         if (selectedOptionIndex == questionList.get(currentQuestionIndex).getCorrectAnswerIndex()) {
             currentQuestionIndex++;
             correctAnswers++;
             return true;
         } else {
             currentQuestionIndex++;
+            vibrate(100);
             return false;
         }
     }
@@ -200,4 +205,23 @@ public class QuizActivity extends AppCompatActivity {
         }
 
     }
+
+    private void showAnimations(){
+        questionNoview.startAnimation(slideAnim);
+        questionTextView.startAnimation(slideAnim);
+        optionATextView.startAnimation(slideAnim);
+        optionBTextView.startAnimation(slideAnim);
+        optionCTextView.startAnimation(slideAnim);
+        optionDTextView.startAnimation(slideAnim);
+
+    }
+    private void vibrate(int time){
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            vibrator.vibrate(time); // Vibrate for 100 milliseconds
+        }
+    }
+
 }

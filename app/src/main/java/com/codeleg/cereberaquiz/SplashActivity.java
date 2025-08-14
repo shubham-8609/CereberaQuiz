@@ -2,6 +2,11 @@ package com.codeleg.cereberaquiz;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +16,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class SplashActivity extends AppCompatActivity {
 Intent mainIntent ;
+Animation slideAnim;
+TextView developerTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,16 +27,17 @@ Intent mainIntent ;
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+
         });
+        developerTextView = findViewById(R.id.developer_text);
         mainIntent = new Intent(SplashActivity.this, MainActivity.class);
-        new Thread(() -> {
-            try {
-                Thread.sleep(1500);
-                startActivity(mainIntent);
-                finish();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
+        slideAnim = AnimationUtils.loadAnimation(this, R.anim.slide_anim);
+        developerTextView.startAnimation(slideAnim);
+
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            startActivity(mainIntent);
+            finish();
+        }, 1500);
+
     }
 }
