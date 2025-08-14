@@ -1,5 +1,6 @@
 package com.codeleg.cereberaquiz;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -39,6 +40,8 @@ public class QuizActivity extends AppCompatActivity {
     ArrayList<CardView> changedCardView = new ArrayList<>(1);
     ArrayList<TextView> changedTextView = new ArrayList<>(1);
     AppCompatButton nextBtn;
+    Intent resultIntent;
+    int correctAnswers = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,6 @@ public class QuizActivity extends AppCompatActivity {
             return insets;
         });
         init();
-
         setHeading();
         setQuestion();
         // Set click listeners for option buttons
@@ -61,11 +63,6 @@ public class QuizActivity extends AppCompatActivity {
                 if (checkAnswer(0)) {
                     changeColor(v, optionAIconView , 0);
                     isChoosed = true;
-//                    if (currentQuestionIndex < questionList.size()){
-//
-//                    }else{
-//                        Toast.makeText(QuizActivity.this, "Quiz Completed", Toast.LENGTH_SHORT).show();
-//                    }
                 }else {
                     changeColor(v, optionAIconView, 1);
                     isChoosed = true;
@@ -117,7 +114,13 @@ public class QuizActivity extends AppCompatActivity {
                 isChoosed = false;
                 nextBtn.setVisibility(View.GONE);
             } else {
+                resultIntent.putExtra("catogary", catogary);
+                resultIntent.putExtra("correctAnswers", correctAnswers);
+                resultIntent.putExtra("total", questionList.size());
+                startActivity(resultIntent);
+                finish();
                 Toast.makeText(QuizActivity.this, "Quiz Completed", Toast.LENGTH_SHORT).show();
+
             }
 
         });
@@ -141,6 +144,7 @@ public class QuizActivity extends AppCompatActivity {
         optionBIconView = findViewById(R.id.option_B_icon);
         optionCIconView = findViewById(R.id.option_C_icon);
         optionDIconView = findViewById(R.id.option_D_icon);
+        resultIntent = new Intent(QuizActivity.this, Result.class);
     }
     private void setHeading() {
         switch (catogary) {
@@ -173,12 +177,12 @@ public class QuizActivity extends AppCompatActivity {
     private Boolean checkAnswer(int selectedOptionIndex) {
         // Implementation for checking the answer will go here
         nextBtn.setVisibility(View.VISIBLE);
-        currentQuestionIndex++;
         if (selectedOptionIndex == questionList.get(currentQuestionIndex).getCorrectAnswerIndex()) {
-            Toast.makeText(this, "Correct Answer !!", Toast.LENGTH_SHORT).show();
+            currentQuestionIndex++;
+            correctAnswers++;
             return true;
         } else {
-            Toast.makeText(this, "Wrong Answer !!", Toast.LENGTH_SHORT).show();
+            currentQuestionIndex++;
             return false;
         }
     }

@@ -46,7 +46,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             app:cardElevation="6dp"
-            android:backgroundTint="@color/secondaryColor"
+            android:backgroundTint="@color/aqua"
             app:cardUseCompatPadding="true"
             android:layout_marginHorizontal="@dimen/_16sdp"
             app:cardCornerRadius="@dimen/_10sdp"
@@ -65,9 +65,7 @@
                 android:layout_height="@dimen/_50sdp"
                 android:layout_gravity="start"
                 android:layout_marginStart="@dimen/_12sdp"
-                android:backgroundTint="@color/onPrimaryColor"
-                android:src="@drawable/science"
-                app:tint="@color/onPrimaryColor" />
+                android:src="@drawable/science" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -91,7 +89,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 app:cardElevation="6dp"
-                android:backgroundTint="@color/secondaryColor"
+                android:backgroundTint="@color/dark_brown"
                 app:cardUseCompatPadding="true"
                 android:layout_marginHorizontal="@dimen/_16sdp"
                 app:cardCornerRadius="@dimen/_10sdp"
@@ -110,9 +108,7 @@
                     android:layout_height="@dimen/_50sdp"
                     android:layout_gravity="start"
                     android:layout_marginStart="@dimen/_12sdp"
-                    android:backgroundTint="@color/onPrimaryColor"
-                    android:src="@drawable/science"
-                    app:tint="@color/onPrimaryColor" />
+                    android:src="@drawable/history" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -136,7 +132,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 app:cardElevation="6dp"
-                android:backgroundTint="@color/secondaryColor"
+                android:backgroundTint="@color/brown"
                 app:cardUseCompatPadding="true"
                 android:layout_marginHorizontal="@dimen/_16sdp"
                 app:cardCornerRadius="@dimen/_10sdp"
@@ -155,9 +151,7 @@
                     android:layout_height="@dimen/_50sdp"
                     android:layout_gravity="start"
                     android:layout_marginStart="@dimen/_12sdp"
-                    android:backgroundTint="@color/onPrimaryColor"
-                    android:src="@drawable/sports"
-                    app:tint="@color/onPrimaryColor" />
+                    android:src="@drawable/sports" />
 
                     <TextView
                         android:layout_width="match_parent"

@@ -5,4 +5,7 @@
     <string name="sports_quiz_text">SportsQuiz</string>
     <string name="default_question">Who was the father of Ocean ?</string>
     <string name="default_options">Shubham ?</string>
+    <string name="congrats_text">Congrats !</string>
+    <string name="default_complete">Quiz completed successfully.</string>
+    <string name="default_result">You attempt 60 questions and from that 55 is correct.</string>
 </resources>
