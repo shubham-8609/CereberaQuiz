@@ -1,29 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.CereberaQuiz" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <!-- Primary -->
-<!--        <item name="colorPrimary">@color/primaryColor</item>-->
-<!--        <item name="colorOnPrimary">@color/onPrimaryColor</item>-->
 
-<!--        &lt;!&ndash; Secondary &ndash;&gt;-->
-<!--        <item name="colorSecondary">@color/secondaryColor</item>-->
-<!--        <item name="colorOnSecondary">@color/onSecondaryColor</item>-->
-
-<!--        &lt;!&ndash; Background &ndash;&gt;-->
-<!--        <item name="android:colorBackground">@color/backgroundColor</item>-->
-<!--        <item name="colorOnBackground">@color/onBackgroundColor</item>-->
-
-<!--        &lt;!&ndash; Surface &ndash;&gt;-->
-<!--        <item name="colorSurface">@color/surfaceColor</item>-->
-<!--        <item name="colorOnSurface">@color/onSurfaceColor</item>-->
-
-<!--        &lt;!&ndash; Error &ndash;&gt;-->
-<!--        <item name="colorError">@color/errorColor</item>-->
-<!--        <item name="colorOnError">@color/onErrorColor</item>-->
     </style>
 
+    <style name="my_customized_theme" parent="Theme.Material3.DayNight.NoActionBar">
+
+    </style>
 
 
     <style name="Theme.CereberaQuiz" parent="Base.Theme.CereberaQuiz" />

@@ -37,22 +37,29 @@ public class MainActivity extends AppCompatActivity {
 
         scienceOption.setOnClickListener(v -> {
             quizPageInent.putExtra("catogary" , "science");
-            startActivity(quizPageInent);
-            scienceOption.startAnimation(clickAnim);
+            transitionActivity(quizPageInent ,false);
+
         });
         historyOption.setOnClickListener(v -> {
             quizPageInent.putExtra("catogary" , "history");
-            historyOption.startAnimation(clickAnim);
-            startActivity(quizPageInent);
+            transitionActivity(quizPageInent ,false);
         });
         sportsOption.setOnClickListener(v -> {
             quizPageInent.putExtra("catogary" , "sports");
-            startActivity(quizPageInent);
-            sportsOption.startAnimation(clickAnim);
+            transitionActivity(quizPageInent ,false);
         });
 
 
 
+
+    }
+    private void transitionActivity(Intent activity , Boolean isFinish){
+
+        startActivity(activity);
+        overridePendingTransition(R.anim.activity_transition_anim, R.anim.activity_reverse);
+        if (isFinish){
+            finish();
+        }
 
     }
 }

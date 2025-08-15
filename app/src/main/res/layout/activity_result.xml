@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
+
     android:gravity="center"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:background="@color/white"
     tools:context=".Result">
 
@@ -80,6 +81,18 @@
         </ScrollView>
 
     </androidx.cardview.widget.CardView>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/home_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:backgroundTint="@color/primaryColor"
+        android:paddingVertical="@dimen/_10sdp"
+        android:text="Home"
+        android:textColor="@color/onPrimaryColor"
+        android:textSize="@dimen/_20ssp"
+        style="@style/default_heading"/>
 
 
 

@@ -6,15 +6,21 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.os.Build;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Menu;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -26,7 +32,7 @@ import java.util.List;
 public class QuizActivity extends AppCompatActivity {
     String catogary;
     private List<Question> questionList;
-    TextView catogaryHeading,questionNoview,questionTextView,optionATextView,optionBTextView,optionCTextView,optionDTextView,optionAIconView,optionBIconView,optionCIconView,optionDIconView;
+    TextView questionNoview,questionTextView,optionATextView,optionBTextView,optionCTextView,optionDTextView,optionAIconView,optionBIconView,optionCIconView,optionDIconView;
     CardView optionAView,optionBView,optionCView,optionDView;
     int currentQuestionIndex = 0;
     Boolean isChoosed = false;
@@ -34,8 +40,10 @@ public class QuizActivity extends AppCompatActivity {
     ArrayList<TextView> changedTextView = new ArrayList<>(1);
     AppCompatButton nextBtn;
     Intent resultIntent;
+    LinearLayout mainLayout;
     int correctAnswers = 0;
-    Animation introAnim , clickAnim , slideAnim;
+    Animation introAnim , clickAnim , slideAnim , activityTransitionAnim;
+    Toolbar customToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +56,10 @@ public class QuizActivity extends AppCompatActivity {
             return insets;
         });
         init();
+        setCustomToolbar();
         setHeading();
         setQuestion();
-        showAnimations();
+//        showAnimations();
         // Set click listeners for option buttons
         optionAView.setOnClickListener(v -> {
             if (isChoosed) {
@@ -117,8 +126,7 @@ public class QuizActivity extends AppCompatActivity {
                 resultIntent.putExtra("catogary", catogary);
                 resultIntent.putExtra("correctAnswers", correctAnswers);
                 resultIntent.putExtra("total", questionList.size());
-                startActivity(resultIntent);
-                finish();
+                transitionActivity(resultIntent , true);
                 Toast.makeText(QuizActivity.this, "Quiz Completed", Toast.LENGTH_SHORT).show();
 
             }
@@ -127,7 +135,6 @@ public class QuizActivity extends AppCompatActivity {
 
     }
     private void init() {
-        catogaryHeading = findViewById(R.id.catogary_heading);
         catogary = getIntent().getStringExtra("catogary");
         questionNoview = findViewById(R.id.question_no);
         questionTextView = findViewById(R.id.question_text);
@@ -148,19 +155,20 @@ public class QuizActivity extends AppCompatActivity {
         introAnim = AnimationUtils.loadAnimation(this, R.anim.intro_anim);
         clickAnim = AnimationUtils.loadAnimation(this, R.anim.click_anim);
         slideAnim = AnimationUtils.loadAnimation(this, R.anim.slide_anim);
+        customToolbar = findViewById(R.id.quiz_toolbar);
+        activityTransitionAnim = AnimationUtils.loadAnimation(this , R.anim.activity_transition_anim);
+        mainLayout = findViewById(R.id.main_layout);
     }
     private void setHeading() {
+
         switch (catogary) {
             case "science":
-                catogaryHeading.setText(R.string.science_quiz_text);
                 questionList = new ArrayList<>(QuestionBank.getScienceQuestions());
                 break;
             case "history":
-                catogaryHeading.setText(R.string.history_quiz_text);
                 questionList = new ArrayList<>(QuestionBank.getHistoryQuestions());
                 break;
             case "sports":
-                catogaryHeading.setText(R.string.sports_quiz_text);
                 questionList = new ArrayList<>(QuestionBank.getSportsQuestions());
                 break;
             default:
@@ -207,12 +215,8 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void showAnimations(){
-        questionNoview.startAnimation(slideAnim);
-        questionTextView.startAnimation(slideAnim);
-        optionATextView.startAnimation(slideAnim);
-        optionBTextView.startAnimation(slideAnim);
-        optionCTextView.startAnimation(slideAnim);
-        optionDTextView.startAnimation(slideAnim);
+
+        mainLayout.startAnimation(slideAnim);
 
     }
     private void vibrate(int time){
@@ -222,6 +226,53 @@ public class QuizActivity extends AppCompatActivity {
         } else {
             vibrator.vibrate(time); // Vibrate for 100 milliseconds
         }
+    }
+
+    public void setCustomToolbar(){
+        setSupportActionBar(customToolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        getSupportActionBar().setTitle(catogary);
+        customToolbar.setSubtitle("CereberaQuiz");
+
+
+
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        new MenuInflater(this).inflate(R.menu.option_menu, menu);
+        return true;
+        // return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.see_result_option){
+            resultIntent.putExtra("catogary", catogary);
+            resultIntent.putExtra("correctAnswers", correctAnswers);
+
+                resultIntent.putExtra("total", currentQuestionIndex);
+
+            transitionActivity(resultIntent , true);// implement confirming
+        } else if (item.getItemId() == R.id.exit_quiz_option) {
+            transitionActivity(new Intent(this , MainActivity.class) , true);
+        }else {
+            transitionActivity(new Intent(this , MainActivity.class) , true);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void transitionActivity(Intent activity , Boolean isFinish){
+
+        startActivity(activity);
+        overridePendingTransition(R.anim.activity_transition_anim, R.anim.activity_reverse);
+        if (isFinish){
+            finish();
+        }
+
     }
 
 }

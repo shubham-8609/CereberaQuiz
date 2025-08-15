@@ -1,5 +1,6 @@
 package com.codeleg.cereberaquiz;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -7,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -19,6 +21,8 @@ public class Result extends AppCompatActivity {
     TextView congratsTextView;
     TextView scoreTextView;
     TextView resultTextView;
+    AppCompatButton homeBtn;
+
 
 
 
@@ -36,6 +40,9 @@ public class Result extends AppCompatActivity {
         calculateScore();
         setResultText();
         setColors();
+        homeBtn.setOnClickListener(v -> {
+            transitionActivity(new Intent(this , MainActivity.class) , true);
+        });
     }
     private void init() {
         category = getIntent().getStringExtra("category");
@@ -45,15 +52,21 @@ public class Result extends AppCompatActivity {
         congratsTextView = findViewById(R.id.congrats_text);
         scoreTextView = findViewById(R.id.score_text);
         resultTextView = findViewById(R.id.result_text);
+        homeBtn = findViewById(R.id.home_btn);
 
 
 
     }
     private void calculateScore(){
-        this.score =  (correctAnswers * 100) / totalQuestions;
+        try {
+            this.score =  (correctAnswers * 100) / totalQuestions;
+        } catch (Exception e) {
+            this.score = 0;
+        }
         scoreTextView.setText(this.score + "% Score");
 
     }
+
 
     private void setResultText() {
         StringBuffer result = new StringBuffer("You attempt " + totalQuestions + " questions and from that " + correctAnswers + " is correct.");
@@ -73,6 +86,15 @@ public class Result extends AppCompatActivity {
             congratsTextView.setTextColor(getResources().getColor(R.color.lightGreen, getTheme()));
             resultTextView.setTextColor(getResources().getColor(R.color.lightGreen, getTheme()));
             scoreTextView.setTextColor(getResources().getColor(R.color.lightGreen, getTheme()));
+        }
+
+    }
+    private void transitionActivity(Intent activity , Boolean isFinish){
+
+        startActivity(activity);
+        overridePendingTransition(R.anim.activity_transition_anim, R.anim.activity_reverse);
+        if (isFinish){
+            finish();
         }
 
     }
