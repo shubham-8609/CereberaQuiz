@@ -286,6 +286,7 @@
                 android:layout_marginHorizontal="@dimen/_50sdp"
                 android:layout_marginTop="@dimen/_50sdp"
                 android:backgroundTint="@color/primaryColor"
+                android:background="@drawable/custom_btn_bg"
                 android:paddingVertical="@dimen/_10sdp"
                 android:text="Next"
                 android:textColor="@color/onPrimaryColor"

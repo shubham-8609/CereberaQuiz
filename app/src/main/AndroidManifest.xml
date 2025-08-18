@@ -10,7 +10,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-
+        android:theme="@style/Base.Theme.CereberaQuiz"
         android:supportsRtl="true">
         <activity
             android:name=".SplashActivity"
@@ -24,15 +24,12 @@
         </activity>
         <activity
             android:name=".Result"
-            android:theme="@style/my_customized_theme"
             android:exported="false" />
         <activity
             android:name=".QuizActivity"
-            android:theme="@style/my_customized_theme"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Base.Theme.CereberaQuiz"
             android:exported="false">
 
         </activity>

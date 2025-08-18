@@ -2,10 +2,7 @@ package com.codeleg.cereberaquiz;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,9 +11,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
-    LinearLayout scienceOption , historyOption , sportsOption ;
-    Animation clickAnim;
+    LinearLayout scienceOption, historyOption, sportsOption;
     Intent quizPageInent;
+
+    public static final String KEY_CATEGORY = "catogary";
+    public static final String CATEGORY_SCIENCE = "science";
+    public static final String CATEGORY_HISTORY = "history";
+    public static final String CATEGORY_SPORTS = "sports";
 
 
     @Override
@@ -33,32 +34,33 @@ public class MainActivity extends AppCompatActivity {
         scienceOption = findViewById(R.id.science_option);
         historyOption = findViewById(R.id.history_option);
         sportsOption = findViewById(R.id.sports_option);
-        clickAnim = AnimationUtils.loadAnimation(this, R.anim.click_anim);
 
         scienceOption.setOnClickListener(v -> {
-            quizPageInent.putExtra("catogary" , "science");
-            transitionActivity(quizPageInent ,false);
+            quizPageInent.putExtra(KEY_CATEGORY, CATEGORY_SCIENCE);
+            transitionActivity(quizPageInent, false, false);
 
         });
         historyOption.setOnClickListener(v -> {
-            quizPageInent.putExtra("catogary" , "history");
-            transitionActivity(quizPageInent ,false);
+            quizPageInent.putExtra(KEY_CATEGORY, CATEGORY_HISTORY);
+            transitionActivity(quizPageInent, false, false);
         });
         sportsOption.setOnClickListener(v -> {
-            quizPageInent.putExtra("catogary" , "sports");
-            transitionActivity(quizPageInent ,false);
+            quizPageInent.putExtra(KEY_CATEGORY, CATEGORY_SPORTS);
+            transitionActivity(quizPageInent, false, false);
         });
-
-
 
 
     }
-    private void transitionActivity(Intent activity , Boolean isFinish){
+
+    private void transitionActivity(Intent activity, Boolean isFinish, Boolean isClear) {
 
         startActivity(activity);
-        overridePendingTransition(R.anim.activity_transition_anim, R.anim.activity_reverse);
-        if (isFinish){
+//        overridePendingTransition(R.anim.activity_transition_anim, R.anim.activity_reverse);
+        if (isFinish) {
             finish();
+        }
+        if (isClear) {
+            finishAffinity();
         }
 
     }

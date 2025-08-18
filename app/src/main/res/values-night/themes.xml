@@ -4,6 +4,7 @@
 <!--        &lt;!&ndash; Customize your dark theme here. &ndash;&gt;-->
 <!--        &lt;!&ndash; <item name="colorPrimary">@color/my_dark_primary</item> &ndash;&gt;-->
 <!--        &lt;!&ndash; Primary &ndash;&gt;-->
+        <item name="android:windowAnimationStyle">@style/ActivityScrollAnimation</item>
 <!--        <item name="colorPrimary">#FF8F00</item>-->
 <!--        <item name="colorOnPrimary">#000000</item>-->
 
@@ -22,6 +23,13 @@
 <!--        &lt;!&ndash; Error &ndash;&gt;-->
 <!--        <item name="colorError">#CF6679</item>-->
 <!--        <item name="colorOnError">#000000</item>-->
+
+    </style>
+    <style name="ActivityScrollAnimation">
+        <item name="android:activityOpenEnterAnimation">@anim/activity_transition_anim</item>
+        <item name="android:activityOpenExitAnimation">@anim/activity_reverse</item>
+        <item name="android:activityCloseEnterAnimation">@anim/activity_transition_anim</item>
+        <item name="android:activityCloseExitAnimation">@anim/activity_reverse</item>
 
     </style>
 </resources>

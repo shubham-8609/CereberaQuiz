@@ -1,6 +1,7 @@
 package com.codeleg.cereberaquiz;
 
 import java.util.ArrayList;
+import java.util.Collections; // Added this import
 import java.util.List;
 
 public class QuestionBank {
@@ -57,6 +58,7 @@ public class QuestionBank {
                 new String[]{"Gold", "Iron", "Diamond", "Quartz"},
                 2
         ));
+        Collections.shuffle(questions); // Shuffled the list
         return questions;
     }
 
@@ -112,6 +114,7 @@ public class QuestionBank {
                 new String[]{"Roman Empire", "Persian Empire", "Macedonian Empire", "Ottoman Empire"},
                 2
         ));
+        Collections.shuffle(questions); // Shuffled the list
         return questions;
     }
 
@@ -167,7 +170,7 @@ public class QuestionBank {
                 new String[]{"20 kilometers", "26.2 miles", "30 kilometers", "40.2 miles"},
                 1
         ));
+        Collections.shuffle(questions); // Shuffled the list
         return questions;
     }
 }
-

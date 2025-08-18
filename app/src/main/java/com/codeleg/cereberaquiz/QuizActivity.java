@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.os.Build;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -18,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
@@ -30,6 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuizActivity extends AppCompatActivity {
+    public static final String KEY_CATEGORY = "catogary";
+    public static final String KEY_CORRECT_ANSWERS = "correctAnswers";
+    public static final String KEY_TOTAL_QUESTIONS = "total";
+
     String catogary;
     private List<Question> questionList;
     TextView questionNoview,questionTextView,optionATextView,optionBTextView,optionCTextView,optionDTextView,optionAIconView,optionBIconView,optionCIconView,optionDIconView;
@@ -62,8 +66,7 @@ public class QuizActivity extends AppCompatActivity {
 //        showAnimations();
         // Set click listeners for option buttons
         optionAView.setOnClickListener(v -> {
-            if (isChoosed) {
-            } else {
+            if (!isChoosed) {
                 v.startAnimation(clickAnim);
                 if (checkAnswer(0)) {
                     changeColor(v, optionAIconView , 0);
@@ -75,8 +78,7 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
         optionBView.setOnClickListener(v -> {
-            if (isChoosed) {
-            } else {
+            if (!isChoosed) {
                 v.startAnimation(clickAnim);
                 if (checkAnswer(1)) {
                     changeColor(v, optionBIconView , 0);
@@ -88,8 +90,7 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
         optionCView.setOnClickListener(v -> {
-            if (isChoosed) {
-            } else {
+            if (!isChoosed) {
                 v.startAnimation(clickAnim);
                 if (checkAnswer(2)) {
                     changeColor(v, optionCIconView , 0);
@@ -101,8 +102,7 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
         optionDView.setOnClickListener(v -> {
-            if (isChoosed) {
-            } else {
+            if (!isChoosed) {
                 v.startAnimation(clickAnim);
                 if (checkAnswer(3)) {
                         changeColor(v, optionDIconView , 0);
@@ -123,10 +123,10 @@ public class QuizActivity extends AppCompatActivity {
                 showAnimations();
                 nextBtn.setVisibility(View.GONE);
             } else {
-                resultIntent.putExtra("catogary", catogary);
-                resultIntent.putExtra("correctAnswers", correctAnswers);
-                resultIntent.putExtra("total", questionList.size());
-                transitionActivity(resultIntent , true);
+                resultIntent.putExtra(KEY_CATEGORY, catogary);
+                resultIntent.putExtra(KEY_CORRECT_ANSWERS, correctAnswers);
+                resultIntent.putExtra(KEY_TOTAL_QUESTIONS, questionList.size());
+                transitionActivity(resultIntent , true , false);
                 Toast.makeText(QuizActivity.this, "Quiz Completed", Toast.LENGTH_SHORT).show();
 
             }
@@ -135,7 +135,7 @@ public class QuizActivity extends AppCompatActivity {
 
     }
     private void init() {
-        catogary = getIntent().getStringExtra("catogary");
+        catogary = getIntent().getStringExtra(KEY_CATEGORY);
         questionNoview = findViewById(R.id.question_no);
         questionTextView = findViewById(R.id.question_text);
         optionAView = findViewById(R.id.option_A);
@@ -243,34 +243,61 @@ public class QuizActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        new MenuInflater(this).inflate(R.menu.option_menu, menu);
+        getMenuInflater().inflate(R.menu.option_menu, menu);
         return true;
         // return super.onCreateOptionsMenu(menu);
     }
 
+    private void showSeeResultConfirmationDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("See Result")
+                .setMessage("Are you sure you want to see your results now? Your current progress will be submitted.")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    resultIntent.putExtra(KEY_CATEGORY, catogary);
+                    resultIntent.putExtra(KEY_CORRECT_ANSWERS, correctAnswers);
+                    resultIntent.putExtra(KEY_TOTAL_QUESTIONS, currentQuestionIndex); // Use currentQuestionIndex as total if quiz is not finished
+                    transitionActivity(resultIntent, true, false);
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+    private void showExitQuizConfirmationDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Exit Quiz")
+                .setMessage("Are you sure you want to exit the quiz? Your progress will be lost.")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    transitionActivity(new Intent(this, MainActivity.class), true, true);
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.see_result_option){
-            resultIntent.putExtra("catogary", catogary);
-            resultIntent.putExtra("correctAnswers", correctAnswers);
-
-                resultIntent.putExtra("total", currentQuestionIndex);
-
-            transitionActivity(resultIntent , true);// implement confirming
-        } else if (item.getItemId() == R.id.exit_quiz_option) {
-            transitionActivity(new Intent(this , MainActivity.class) , true);
-        }else {
-            transitionActivity(new Intent(this , MainActivity.class) , true);
+        int itemId = item.getItemId();
+        if (itemId == R.id.see_result_option) {
+            showSeeResultConfirmationDialog();
+            return true;
+        } else if (itemId == R.id.exit_quiz_option) {
+            showExitQuizConfirmationDialog();
+            return true;
+        } else if (itemId == android.R.id.home) { // Handles toolbar back arrow
+            showExitQuizConfirmationDialog();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void transitionActivity(Intent activity , Boolean isFinish){
+    private void transitionActivity(Intent activity , Boolean isFinish ,  Boolean isClear){
 
         startActivity(activity);
-        overridePendingTransition(R.anim.activity_transition_anim, R.anim.activity_reverse);
+//        overridePendingTransition(R.anim.activity_transition_anim, R.anim.activity_reverse);
         if (isFinish){
             finish();
+        }
+        if(isClear){
+         finishAffinity();
         }
 
     }

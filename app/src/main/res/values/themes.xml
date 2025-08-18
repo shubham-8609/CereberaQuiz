@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.CereberaQuiz" parent="Theme.Material3.DayNight.NoActionBar">
-
+        <item name="android:windowAnimationStyle">@style/ActivityScrollAnimation</item>
     </style>
 
     <style name="my_customized_theme" parent="Theme.Material3.DayNight.NoActionBar">
@@ -10,4 +10,11 @@
 
 
     <style name="Theme.CereberaQuiz" parent="Base.Theme.CereberaQuiz" />
+    <style name="ActivityScrollAnimation">
+        <item name="android:activityOpenEnterAnimation">@anim/activity_transition_anim</item>
+        <item name="android:activityOpenExitAnimation">@anim/activity_reverse</item>
+        <item name="android:activityCloseEnterAnimation">@anim/activity_transition_anim</item>
+        <item name="android:activityCloseExitAnimation">@anim/activity_reverse</item>
+
+    </style>
 </resources>

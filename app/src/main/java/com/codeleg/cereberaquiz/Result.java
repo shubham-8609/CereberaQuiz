@@ -41,7 +41,7 @@ public class Result extends AppCompatActivity {
         setResultText();
         setColors();
         homeBtn.setOnClickListener(v -> {
-            transitionActivity(new Intent(this , MainActivity.class) , true);
+            transitionActivity(new Intent(this , MainActivity.class) , true , true);
         });
     }
     private void init() {
@@ -89,12 +89,15 @@ public class Result extends AppCompatActivity {
         }
 
     }
-    private void transitionActivity(Intent activity , Boolean isFinish){
+    private void transitionActivity(Intent activity , Boolean isFinish ,  Boolean isClear){
 
         startActivity(activity);
         overridePendingTransition(R.anim.activity_transition_anim, R.anim.activity_reverse);
         if (isFinish){
             finish();
+        }
+        if(isClear){
+            finishAffinity();
         }
 
     }
